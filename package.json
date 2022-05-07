@@ -4,7 +4,8 @@
   "description": "Providing scala types implementation for typescript",
   "main": "src/main/index.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "npx tsc"
   },
   "repository": {
     "type": "git",
