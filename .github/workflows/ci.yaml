@@ -1,17 +1,12 @@
-name: Continuous Integration and Delivery
+name: Continuous Integration
 on:
   push:
-    branches:
-      - main
-    tags:
-      - '*'
   pull_request:
-    branches:
-      - main
   workflow_dispatch:
+  workflow_call:
 
 jobs:
-  ci:
+  build-and-test:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
@@ -27,26 +22,10 @@ jobs:
         run: npm run build
       - name: Test
         run: npm run test
-  cd:
-    name: Release
-    needs: ci
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v2
+      - name: Codecov
+        uses: codecov/codecov-action@v3
         with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_TOKEN }}
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-      - name: Install dependencies
-        run: npm i
-      - name: Install semantic-release
-        run: npm i semantic-release --save-dev
-      - name: Semantic release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/clover.xml
+          fail_ci_if_error: true
+          verbose: true
