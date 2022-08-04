@@ -2,7 +2,11 @@
   "name": "scala-types",
   "version": "0.0.0",
   "description": "Providing scala types implementation for typescript",
-  "main": "src/main/index.ts",
+  "main": "dist/main/index.ts",
+  "types": "dist/main/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "test": "jest",
     "build": "npx tsc"
