@@ -129,3 +129,12 @@ describe("Test apply", () => {
         simpleNone.apply(logger)
     })
 })
+
+describe("Test toString", () => {
+    test("Some should print the value", () => {
+        logger(simpleSome.toString())
+    })
+    test("Nome should print the none type", () => {
+        logger(simpleNone.toString())
+    })
+})

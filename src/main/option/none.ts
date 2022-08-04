@@ -79,4 +79,6 @@ export class None {
     readonly apply: <T>(f: (v: T) => void) => void = () => {
     }
 
+    readonly toString: () => string = () =>  "None"
+
 }

@@ -89,4 +89,6 @@ export class Some<T> {
      */
     readonly apply: (f: (v: T) => void) => void = (f) => f(this.get())
 
+    readonly toString: () => string = () => `Some(${this.value})`
+
 }
