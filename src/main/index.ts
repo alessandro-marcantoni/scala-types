@@ -1,1 +1,1 @@
-import './option/option'
+export { some, none } from './option/option'
