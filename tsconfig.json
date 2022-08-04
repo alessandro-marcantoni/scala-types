@@ -9,6 +9,7 @@
     "outDir": "dist",
     "sourceMap": true,
     "declaration": true,
+    "declarationMap": true,
     "noImplicitAny": true,
   },
   "include": ["src/main/**/*"],
