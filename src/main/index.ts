@@ -1,1 +1,1 @@
-export { some, none } from './option/option'
+export * from './option'

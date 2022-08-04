@@ -2,7 +2,7 @@
   "name": "scala-types",
   "version": "0.0.0",
   "description": "Providing scala types implementation for typescript",
-  "main": "dist/main/index.ts",
+  "main": "dist/main/index.js",
   "types": "dist/main/index.d.ts",
   "files": [
     "/dist"
