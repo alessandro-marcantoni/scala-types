@@ -16,7 +16,7 @@
     "url": "git+https://github.com/alessandro-marcantoni/scala-types.git"
   },
   "author": "Alessandro Marcantoni",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/alessandro-marcantoni/scala-types/issues"
   },
