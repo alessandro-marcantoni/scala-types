@@ -1,4 +1,4 @@
-import {fromArray, List, list, toArray} from "../main/list/list"
+import {fromArray, list, toArray} from "../main/list/list"
 import {Nil} from "../main/list/nil"
 import {Cons} from "../main/list/cons"
 
