@@ -1,5 +1,5 @@
-import {Some} from "./some";
-import {None} from "./none";
+import {Some} from "./some"
+import {None} from "./none"
 
 export type Option<T> =
     | Some<T>

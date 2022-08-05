@@ -1,4 +1,4 @@
-import {none, NoSuchElementError, Option, some} from "./option";
+import {none, NoSuchElementError, Option} from "./option"
 
 export class None {
     /**
@@ -75,7 +75,7 @@ export class None {
      * Apply the given procedure f to the option's value, if it is nonempty. Otherwise, do nothing.
      * @param f The procedure to apply.
      */
-        // tslint:disable-next-line:no-empty
+    // tslint:disable-next-line:no-empty
     readonly apply: <T>(f: (v: T) => void) => void = () => {
     }
 
