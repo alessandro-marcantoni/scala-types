@@ -10,7 +10,8 @@
   "scripts": {
     "test": "jest",
     "build": "npx tsc",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "linter": "npx eslint src/main/*.ts src/main/*/*.ts src/test/*.ts"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/alessandro-marcantoni/scala-types#readme",
   "devDependencies": {
+<<<<<<< HEAD
     "@types/jest": "29.0.3",
     "eslint": "8.21.0",
     "husky": "8.0.1",

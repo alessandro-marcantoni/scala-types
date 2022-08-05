@@ -1,4 +1,4 @@
-import {none, Option, some} from "./option";
+import {none, Option, some} from "./option"
 
 export class Some<T> {
     private readonly value: T
@@ -27,8 +27,7 @@ export class Some<T> {
      * @param other The other Option to compare.
      */
     readonly equals: <U>(other: Option<U>) => boolean = <U>(other: Option<U>) => {
-        // @ts-ignore
-        return other.isDefined() && (other as Some<U>).get() === this.get()
+        return other.isDefined() && (other as Some<T>).get() === this.get()
     }
 
     /**
@@ -60,8 +59,7 @@ export class Some<T> {
      * Tests whether the option contains a given value as an element.
      * @param value The value to test.
      */
-        // @ts-ignore
-    readonly contains: <U>(value: U) => boolean = (value) => this.get() === value
+    readonly contains: (value: T) => boolean = (value) => this.get() === value
 
     /**
      * Returns a Some containing the result of applying f to this Option's contained value,
@@ -79,9 +77,7 @@ export class Some<T> {
      * @param f The function that combines to two options.
      */
     readonly zip: <U, V>(other: Option<U>, f: (v1: T, v2: U) => V) => Option<V> =
-        <U, V>(other: Option<U>, f: (arg0: T, arg1: U) => V) => other.isDefined()
-            ? some(f(this.get(), (other as Some<U>).get()))
-            : none()
+        <U, V>(other: Option<U>, f: (arg0: T, arg1: U) => V) => other.isDefined() ? some(f(this.get(), (other as Some<U>).get())) : none()
 
     /**
      * Apply the given procedure f to the option's value, if it is nonempty. Otherwise, do nothing.

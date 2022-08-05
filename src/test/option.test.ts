@@ -1,15 +1,15 @@
-import {Option, some, none, NoSuchElementError} from "../main/option/option";
-import * as console from "console";
+import {Option, some, none, NoSuchElementError} from "../main/option/option"
+import * as console from "console"
 
-const value: number = 0;
+const value: number = 0
 const mapper: (v: typeof value) => number = (v) => v.toString().length
 const flatMapper: (v: typeof value) => Option<number> = (v) => some(mapper(v))
 // tslint:disable-next-line:no-console
 const logger: (v: any) => void = (v) => console.log(v)
 const combiner: (a: any, b: string) => string = (a, b) => a.toString() + b
-const dummyValue: string = "dummy";
-const simpleSome: Option<typeof value> = some(value);
-const simpleNone: Option<any> = none();
+const dummyValue = "dummy"
+const simpleSome: Option<typeof value> = some(value)
+const simpleNone: Option<any> = none()
 
 describe("Test equality", () => {
     test("Some with same values should be equals", () => {
