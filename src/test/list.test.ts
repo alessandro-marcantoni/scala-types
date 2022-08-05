@@ -31,6 +31,10 @@ describe("Test equality", () => {
         expect(fromArray(fullArray).equals(fullList)).toBeTruthy()
         expect(fromArray(fullArray.map(toString)).equals(fromArray(fullArray.map(toString)))).toBeTruthy()
     })
+    test("Different lists should not be equal", () => {
+        expect(fromArray(emptyArray).equals(fullList)).toBeFalsy()
+        expect(fullList.equals(fromArray([0, 0, 0, 0, 0]))).toBeFalsy()
+    })
 })
 
 describe("Test toArray", () => {
