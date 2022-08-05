@@ -1,4 +1,4 @@
-import {fromArray, list} from "../main/list/list"
+import {fromArray, List, list, toArray} from "../main/list/list"
 import {Nil} from "../main/list/nil"
 import {Cons} from "../main/list/cons"
 
@@ -30,5 +30,43 @@ describe("Test equality", () => {
         expect(fromArray(fullArray).equals(fromArray(fullArray))).toBeTruthy()
         expect(fromArray(fullArray).equals(fullList)).toBeTruthy()
         expect(fromArray(fullArray.map(toString)).equals(fromArray(fullArray.map(toString)))).toBeTruthy()
+    })
+})
+
+describe("Test toArray", () => {
+    test("Empty list should be an empty array", () => {
+        expect(toArray(list())).toStrictEqual([])
+        expect(toArray(list()).length).toBe(0)
+    })
+    test("Full lists should give the corresponding array", () => {
+        expect(toArray(fullList)).toStrictEqual(fullArray)
+        expect(toArray(fullList).length).toBe(fullList.size())
+    })
+})
+
+describe("Test reverse", () => {
+    test("Empty list should be an empty list", () => {
+        expect(list().reverse().equals(list())).toBeTruthy()
+    })
+    test("Full list should be the reversed full list", () => {
+        expect(fullList.reverse().equals(fromArray(fullArray.reverse()))).toBeTruthy()
+    })
+})
+
+describe("Test get", () => {
+    test("Empty list should get undefined", () => {
+        expect(list().get(0)).toBeUndefined()
+    })
+    test("Empty list should get undefined", () => {
+        fullArray.forEach(i => expect(fullList.get(i)).toBe(i < fullList.size() ? i + 1 : undefined))
+    })
+})
+
+describe("Test appended", () => {
+    test("Empty list should contain only the appended element", () => {
+        expect(list<number>().appended(0).equals(list(0))).toBeTruthy()
+    })
+    test("Full list should append the element", () => {
+        expect(fullList.appended(6).get(5)).toBe(6)
     })
 })

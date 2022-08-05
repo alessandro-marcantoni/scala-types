@@ -3,7 +3,7 @@ import {Nil} from "./nil"
 
 export type List<T> =
     | Cons<T>
-    | Nil
+    | Nil<T>
 
 export const fromArray: <T>(array: T[]) => List<T> = (array) => {
     return array.length > 0
@@ -13,4 +13,8 @@ export const fromArray: <T>(array: T[]) => List<T> = (array) => {
 
 export const list: <T>(...elements: T[]) => List<T> = (...elements) => {
     return fromArray(elements)
+}
+
+export const toArray: <T>(list: List<T>) => T[] = (l) => {
+    return l instanceof Cons ? [l.value].concat(toArray(l.tail)) : []
 }
