@@ -3,7 +3,7 @@ import {Nil} from "../main/list/nil"
 import {Cons} from "../main/list/cons"
 
 const emptyArray: any[] = []
-const fullArray = [1, 2, 3, 4, 5]
+const fullArray = Array.of(1, 2, 3, 4, 5)
 const fullList = new Cons(1, new Cons(2, new Cons(3, new Cons(4, new Cons(5, new Nil())))))
 
 describe("Test list creation", () => {
@@ -55,7 +55,8 @@ describe("Test reverse", () => {
         expect(list().reverse().equals(list())).toBeTruthy()
     })
     test("Full list should be the reversed full list", () => {
-        expect(fullList.reverse().equals(fromArray(fullArray.reverse()))).toBeTruthy()
+        const arr = JSON.parse(JSON.stringify(fullArray))
+        expect(fullList.reverse().equals(fromArray(arr.reverse()))).toBeTruthy()
     })
 })
 
@@ -74,5 +75,25 @@ describe("Test appended", () => {
     })
     test("Full list should append the element", () => {
         expect(fullList.appended(6).get(5)).toBe(6)
+    })
+})
+
+describe("Test appendedAll", () => {
+    test("Empty list should contain only the appended elements", () => {
+        expect(list<number>().appendedAll(fullArray).equals(fullList)).toBeTruthy()
+        expect(list<number>().appendedAll(fullList).equals(fullList)).toBeTruthy()
+    })
+    test("Full list should append the element", () => {
+        expect(fullList.appendedAll([6]).get(5)).toBe(6)
+        expect(fullList.appendedAll(list(6)).get(5)).toBe(6)
+    })
+})
+
+describe("Test prepended", () => {
+    test("Empty list should contain only the prepended elements", () => {
+        expect(list<number>().prepended(0).equals(list(0))).toBeTruthy()
+    })
+    test("Full list should prepend the element", () => {
+        expect(fullList.prepended(0).equals(fromArray([0].concat(fullArray)))).toBeTruthy()
     })
 })
