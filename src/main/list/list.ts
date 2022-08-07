@@ -1,6 +1,9 @@
 import {Cons} from "./cons"
 import {Nil} from "./nil"
 
+/**
+ * A list is made up of either a Cons or Nil.
+ */
 export type List<T> =
     | Cons<T>
     | Nil<T>
