@@ -1,6 +1,7 @@
-import {fromArray, list, toArray} from "../main/list/list"
+import {fromArray, list, toArray, List} from "../main/list/list"
 import {Nil} from "../main/list/nil"
 import {Cons} from "../main/list/cons"
+import { Predicate, Mapper } from "../main/utils"
 
 const emptyArray: any[] = []
 const fullArray = Array.of(1, 2, 3, 4, 5)
@@ -95,5 +96,80 @@ describe("Test prepended", () => {
     })
     test("Full list should prepend the element", () => {
         expect(fullList.prepended(0).equals(fromArray([0].concat(fullArray)))).toBeTruthy()
+    })
+})
+
+describe("Test contains", () => {
+    test("Empty list should not contain any element", () => {
+        expect(list().contains(0)).toBeFalsy()
+    })
+    test("Full list should contain only its elements", () => {
+        expect(fullList.contains(1)).toBeTruthy()
+        expect(fullList.contains(6)).toBeFalsy()
+    })
+})
+
+describe("Test filter", () => {
+    const even: Predicate<number> = e => e % 2 === 0
+    test("Empty list should be an empty list", () => {
+        expect(list<number>().filter(even).equals(list())).toBeTruthy()
+    })
+    test("Full list should contain only the elements that satisfy the predicate", () => {
+        expect(fullList.filter(even).equals(fromArray(fullArray.filter(even)))).toBeTruthy()
+    })
+})
+
+describe("Test map", () => {
+    test("Empty list should be an empty list", () => {
+        expect(list<number>().map(toString).equals(list())).toBeTruthy()
+    })
+    test("Full list should contain the mapped elements", () => {
+        expect(fullList.map(toString).equals(fromArray(fullArray.map(toString)))).toBeTruthy()
+    })
+})
+
+describe("Test exists", () => {
+    const even: Predicate<number> = e => e % 2 === 0
+    test("Empty list should always return false", () => {
+        expect(list<number>().exists(even)).toBeFalsy()
+    })
+    test("Full list should tell whether the predicate is satisfied by an element", () => {
+        expect(fullList.exists(even)).toBeTruthy()
+        expect(fullList.exists(e => e > 10)).toBeFalsy()
+    })
+})
+
+describe("Test find", () => {
+    const even: Predicate<number> = e => e % 2 === 0
+    test("Empty list should always return None", () => {
+        expect(list<number>().find(even).isDefined()).toBeFalsy()
+    })
+    test("Full list should tell whether the predicate is satisfied by an element", () => {
+        expect(fullList.find(even).isDefined()).toBeTruthy()
+        expect(fullList.find(even).get()).toBe(2)
+        expect(fullList.find(e => e > 10).isDefined()).toBeFalsy()
+    })
+})
+
+describe("Test indexOf", () => {
+    test("Empty list should return -1", () => {
+        expect(list().indexOf(0)).toBe(-1)
+    })
+    test("Full list should return the index of the element if present", () => {
+        expect(fullList.indexOf(0)).toBe(-1)
+        expect(fullList.indexOf(1)).toBe(0)
+        expect(fullList.indexOf(5)).toBe(4)
+    })
+})
+
+describe("Test collect", () => {
+    const predicates: List<Predicate<number>> = fromArray([i => i % 2 === 0, i => i >= 5])
+    const mappers: List<Mapper<number, number>> = fromArray([i => i * 10, i => i * 100])
+    test("Empty list should return an empty list", () => {
+        expect(list<number>().collect(predicates, mappers).equals(list())).toBeTruthy()
+    })
+    test("Full list should return the mapped elements that satisfy the any predicate", () => {
+        expect(fullList.collect(list(), list<Mapper<number, number>>()).equals(list())).toBeTruthy()
+        expect(fullList.collect(predicates, mappers).equals(list(20, 40, 500))).toBeTruthy()
     })
 })
