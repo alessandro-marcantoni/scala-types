@@ -86,18 +86,48 @@ export class Cons<T> {
     readonly map: <U>(f: Mapper<T, U>) => List<U> = (f) =>
         new Cons(f(this.value), this.tail.map(f))
 
+    /**
+     * Tests whether a predicate holds for at least one element of this list.
+     * @param predicate the predicate used to test elements.
+     * @returns true if the given predicate p is satisfied by at least one element of this list, otherwise false.
+     */
     readonly exists: (predicate: Predicate<T>) => boolean = (predicate) =>
         predicate(this.value) || this.tail.exists(predicate)
 
+    /**
+     * Finds the first element of the list satisfying a predicate, if any.
+     * @param predicate the predicate used to test elements.
+     * @returns an option value containing the first element in the list that satisfies p, or None if none exists.
+     */
     readonly find: (predicate: Predicate<T>) => Option<T> = (predicate) =>
-        this.exists(predicate) ? predicate(this.value) ? some(this.value) : this.tail.find(predicate) : none()
+        predicate(this.value) ? some(this.value) : this.tail.find(predicate)
 
+    /**
+     * Finds the last element of the list satisfying a predicate, if any.
+     * @param predicate the predicate used to test elements.
+     * @returns an option value containing the last element in the list that satisfies p, or None if none exists.
+     */
+    readonly findLast: (predicate: Predicate<T>) => Option<T> = (predicate) =>
+        this.reverse().find(predicate)
+
+    /**
+     * Finds index of first occurrence of some value in this list.
+     * @param element the element value to search for.
+     * @returns the index >= 0 of the first element of this list that is equal (as determined by ===) to elem, or -1, if none exists.
+     */
     readonly indexOf: (element: T) => number = (element) => {
         const _indexOf: (e: T, l: List<T>, i: number) => number = (e, l, i) =>
             l instanceof Cons ? (l.value === e ? i : _indexOf(e, l.tail, i + 1)) : -1
         return _indexOf(element, this, 0)
     }
 
+    /**
+     * Builds a new list by applying a mapper function to all elements of this list on which one of the predicates holds.
+     * @param p The list of predicates.
+     * @param f The list of mapper functions.
+     * @returns a new list resulting from applying the mapper corresponding to the predicate that holds for each element collecting the results.
+     * The order of the elements is preserved.
+     */
     readonly collect: <U>(p: List<Predicate<T>>, f: List<Mapper<T, U>>) => List<U> = (p, f) =>
         p.exists(pred => pred(this.value))
             ? new Cons(
@@ -107,6 +137,28 @@ export class Cons<T> {
                 this.tail.collect(p, f))
             : this.tail.collect(p, f)
 
-    
+    /**
+     * Finds the first element of the list for which the predicate holds, and applies the mapper to it.
+     * @param p The predicate to test the elements with.
+     * @param f The mapper function.
+     * @returns an option value containing the mapper function applied to the first value for which the predicate holds, or None if none exists.
+     */
+    readonly collectFirst: <U>(p: Predicate<T>, f: Mapper<T, U>) => Option<U> = (p, f) =>
+        this.find(e => p(e)).map(f)
 
+    /**
+     * Counts the number of elements in the list which satisfy a predicate.
+     * @param predicate the predicate used to test elements.
+     * @returns the number of elements satisfying the predicate p.
+     */
+    readonly count: (predicate: Predicate<T>) => number = (predicate) =>
+        (predicate(this.value) ? 1 : 0) + this.tail.count(predicate)
+
+    /**
+     * Builds a new list by applying a function to all elements of this list and using the elements of the resulting collections.
+     * @param f the function to apply to each element.
+     * @returns a new list resulting from applying the given collection-valued function f to each element of this list and concatenating the results.
+     */
+    readonly flatMap: (f: (element: T) => List<T>) => List<T> = (f) =>
+        f(this.value).appendedAll(this.tail.flatMap(f))
 }

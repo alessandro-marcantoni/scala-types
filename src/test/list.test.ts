@@ -173,3 +173,34 @@ describe("Test collect", () => {
         expect(fullList.collect(predicates, mappers).equals(list(20, 40, 500))).toBeTruthy()
     })
 })
+
+describe("Test collectFirst", () => {
+    const predicate: Predicate<number> = i => i % 2 === 0
+    const mapper: Mapper<number, number> = i => i* 10
+    test("Empty list should return a None", () => {
+        expect(list<number>().collectFirst(predicate, mapper).isDefined()).toBeFalsy()
+    })
+    test("Full list should return an option with the mapped value", () => {
+        expect(fullList.collectFirst(predicate, mapper).get()).toBe(20)
+    })
+})
+
+describe("Test count", () => {
+    const predicate: Predicate<number> = i => i % 2 === 0
+    test("Empty list should return 0", () => {
+        expect(list<number>().count(predicate)).toBe(0)
+    })
+    test("Full list should return the number of elements that satisfy the predicate", () => {
+        expect(fullList.count(predicate)).toBe(2)
+    })
+})
+
+describe("Test flatMap", () => {
+    const f: <T>(elem: T) => List<T> = x => list(x, x)
+    test("Empty list should return empty list", () => {
+        expect(list<number>().flatMap(f).equals(list())).toBeTruthy()
+    })
+    test("Full list should contain all the elements of the generated lists", () => {
+        expect(fullList.flatMap(f).equals(list(1, 1, 2, 2, 3, 3, 4, 4, 5, 5))).toBeTruthy()
+    })
+})
