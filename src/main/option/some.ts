@@ -1,4 +1,4 @@
-import {none, Option, some} from "./option"
+import { none, Option, some } from "./option"
 
 export class Some<T> {
     private readonly value: T

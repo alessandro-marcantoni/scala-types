@@ -1,6 +1,6 @@
-import {fromArray, list, toArray, List} from "../main/list/list"
-import {Nil} from "../main/list/nil"
-import {Cons} from "../main/list/cons"
+import { fromArray, list, toArray, List } from "../main/list/list"
+import { Nil } from "../main/list/nil"
+import { Cons } from "../main/list/cons"
 import { Predicate, Mapper } from "../main/utils"
 
 const emptyArray: any[] = []

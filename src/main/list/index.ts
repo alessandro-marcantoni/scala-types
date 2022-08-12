@@ -1,1 +1,1 @@
-export {list, fromArray} from "./list"
+export { list, fromArray } from "./list"

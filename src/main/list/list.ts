@@ -1,5 +1,5 @@
-import {Cons} from "./cons"
-import {Nil} from "./nil"
+import { Cons } from "./cons"
+import { Nil } from "./nil"
 
 /**
  * A list is made up of either a Cons or Nil.
