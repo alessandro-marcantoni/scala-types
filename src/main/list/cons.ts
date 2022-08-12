@@ -1,4 +1,4 @@
-import { Option, some, none } from "../option"
+import { Option, some } from "../option"
 import { Mapper, Predicate } from "../utils"
 import { fromArray, list, List } from "./list"
 

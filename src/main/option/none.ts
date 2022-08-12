@@ -1,4 +1,4 @@
-import {none, NoSuchElementError, Option} from "./option"
+import { none, NoSuchElementError, Option } from "./option"
 
 export class None {
     /**

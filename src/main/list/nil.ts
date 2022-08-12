@@ -1,6 +1,6 @@
 import { Option, none } from "../option"
 import { Predicate, Mapper } from "../utils"
-import {fromArray, list, List} from "./list"
+import { fromArray, list, List } from "./list"
 
 export class Nil<T> {
     /**
