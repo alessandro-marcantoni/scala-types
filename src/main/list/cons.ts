@@ -161,4 +161,26 @@ export class Cons<T> {
      */
     readonly flatMap: (f: (element: T) => List<T>) => List<T> = (f) =>
         f(this.value).appendedAll(this.tail.flatMap(f))
+
+    /**
+     * Tests whether a predicate holds for all elements of this list.
+     * @param p the predicate used to test elements.
+     * @returns true if this list is empty or the given predicate p holds for all elements of this list, otherwise false.
+     */
+    readonly forall: (p: Predicate<T>) => boolean = (p) =>
+        p(this.value) && this.tail.forall(p)
+
+    /**
+     * Apply f to each element for its side effects.
+     * @param f the side effect to apply to each element.
+     */
+    readonly foreach: (f: (element: T) => void) => void = (f) => {
+        f(this.value)
+        this.tail.foreach(f)
+    }
+
+    /**
+     * Tests whether this list is empty.
+     */
+    readonly isEmpty: () => boolean = () => false
 }
