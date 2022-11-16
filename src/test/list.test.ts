@@ -204,3 +204,38 @@ describe("Test flatMap", () => {
         expect(fullList.flatMap(f).equals(list(1, 1, 2, 2, 3, 3, 4, 4, 5, 5))).toBeTruthy()
     })
 })
+
+describe("Test foreach", () => {
+    const f: <T>(elem: T) => void = () => {}
+    test("Empty list should not call the function", () => {
+        expect(list<number>().foreach(f)).toBeUndefined()
+    }),
+    test("Full list should call the function for each element", () => {
+        expect(fullList.foreach(f)).toBeUndefined()
+    }),
+    test("Full list should call the function for each element", () => {
+        expect(fullList.foreach(f)).toBeUndefined()
+    })
+})
+
+describe("Test forall", () => {
+    const predicate: Predicate<number> = i => i % 2 === 0
+    test("Empty list should return true", () => {
+        expect(list<number>().forall(predicate)).toBeTruthy()
+    })
+    test("Full list should return true if all the elements satisfy the predicate", () => {
+        expect(fullList.forall(predicate)).toBeFalsy()
+        console.log(fullList.filter(predicate))
+        expect(fullList.filter(predicate).forall(predicate)).toBeTruthy()
+    })
+})
+
+describe("Test isEmpty", () => {
+    test("Empty list should return true", () => {
+        expect(list<number>().isEmpty()).toBeTruthy()
+    })
+    test("Full list should return false", () => {
+        expect(fullList.isEmpty()).toBeFalsy()
+    })
+})
+

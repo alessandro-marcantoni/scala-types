@@ -118,4 +118,20 @@ export class Nil<T> {
      * @returns a new list resulting from applying the given collection-valued function f to each element of this list and concatenating the results.
      */
     readonly flatMap: (f: (element: T) => List<T>) => List<T> = () => list()
+
+    /**
+     * Tests whether a predicate holds for all elements of this list.
+     * @returns true if this list is empty or the given predicate p holds for all elements of this list, otherwise false.
+     */
+    readonly forall: (p: Predicate<T>) => boolean = () => true
+
+    /**
+     * Apply f to each element for its side effects.
+     */
+    readonly foreach: (f: (element: T) => void) => void = () => {}
+
+    /**
+     * Tests whether this list is empty.
+     */
+    readonly isEmpty: () => boolean = () => true
 }
