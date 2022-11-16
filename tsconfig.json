@@ -13,5 +13,9 @@
     "noImplicitAny": true,
   },
   "include": ["src/main/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "typedocOptions": {
+    "entryPoints": ["src/main/index.ts", "src/main/option/*/*.ts", "src/main/list/*/*.ts"],
+    "out": "docs",
+  },
 }
