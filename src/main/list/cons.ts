@@ -159,7 +159,7 @@ export class Cons<T> {
      * @param f the function to apply to each element.
      * @returns a new list resulting from applying the given collection-valued function f to each element of this list and concatenating the results.
      */
-    readonly flatMap: (f: (element: T) => List<T>) => List<T> = (f) =>
+    readonly flatMap: <U>(f: (element: T) => List<U>) => List<U> = (f) =>
         f(this.value).appendedAll(this.tail.flatMap(f))
 
     /**

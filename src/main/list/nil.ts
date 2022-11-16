@@ -117,7 +117,7 @@ export class Nil<T> {
      * Builds a new list by applying a function to all elements of this list and using the elements of the resulting collections.
      * @returns a new list resulting from applying the given collection-valued function f to each element of this list and concatenating the results.
      */
-    readonly flatMap: (f: (element: T) => List<T>) => List<T> = () => list()
+    readonly flatMap: <U>(f: (element: T) => List<U>) => List<U> = () => list()
 
     /**
      * Tests whether a predicate holds for all elements of this list.
