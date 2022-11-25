@@ -239,3 +239,12 @@ describe("Test isEmpty", () => {
     })
 })
 
+describe("Test distinctBy", () => {
+    const f: <T>(elem: T) => T = x => x
+    test("Empty list should return empty list", () => {
+        expect(list<number>().distinctBy(f).equals(list())).toBeTruthy()
+    })
+    test("Full list should contain only the distinct elements", () => {
+        expect(fullList.appended(1).distinctBy(f).equals(fullList)).toBeTruthy()
+    })
+})

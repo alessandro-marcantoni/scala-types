@@ -3,7 +3,10 @@ import { Mapper, Predicate } from "../utils"
 import { fromArray, list, List } from "./list"
 
 export class Cons<T> {
-    constructor(public value: T, public tail: List<T>) { }
+    constructor(public value: T, public tail: List<T>) {
+        this.value = value
+        this.tail = tail
+    }
 
     /**
      * The size of this list.
@@ -183,4 +186,18 @@ export class Cons<T> {
      * Tests whether this list is empty.
      */
     readonly isEmpty: () => boolean = () => false
+
+    /**
+     * Selects all the elements of this list ignoring the duplicates as determined by == after applying the transforming function f.
+     * @param f the transforming function whose result is used to determine the uniqueness.
+     */
+    readonly distinctBy: <U>(f: Mapper<T, U>) => List<T> = (f) => {
+        const _distinctBy: (l: List<T>, acc: List<T>) => List<T> = (l, acc) => 
+            l instanceof Cons
+                ? acc.exists(e => f(e) === f(l.value))
+                    ? _distinctBy(l.tail, acc)
+                    : _distinctBy(l.tail, acc.appended(l.value))
+                : acc
+        return _distinctBy(this, list())
+    }
 }
