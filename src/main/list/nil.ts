@@ -3,6 +3,9 @@ import { Predicate, Mapper } from "../utils"
 import { fromArray, list, List } from "./list"
 
 export class Nil<T> {
+    public tail = null
+    public value = null
+
     /**
      * The size of this list.
      * @returns {number} the number of elements in this list.
@@ -134,4 +137,10 @@ export class Nil<T> {
      * Tests whether this list is empty.
      */
     readonly isEmpty: () => boolean = () => true
+
+    /**
+     * Selects all the elements of this list ignoring the duplicates as determined by == after applying the transforming function f.
+     * @param f the transforming function whose result is used to determine the uniqueness.
+     */
+    readonly distinctBy: <U>(f: Mapper<T,U>) => List<T> = () => list()
 }
